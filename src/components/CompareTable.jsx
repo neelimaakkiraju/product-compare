@@ -1,4 +1,4 @@
-export default function CompareTable({ compareList }) {
+export default function CompareTable({ compareList, tableId }) {
   if (!compareList.length) return null;
 
   // Collect all unique feature labels from all products
@@ -18,7 +18,7 @@ export default function CompareTable({ compareList }) {
   };
 
   return (
-    <div className="w-full overflow-x-auto mt-6">
+    <div className="w-full overflow-x-auto mt-6" id={tableId || undefined}>
       <table className="min-w-[400px] w-full border-collapse shadow rounded-lg overflow-hidden bg-white dark:bg-gray-800 text-xs sm:text-sm">
         <thead>
           <tr className="bg-blue-100 dark:bg-gray-700">

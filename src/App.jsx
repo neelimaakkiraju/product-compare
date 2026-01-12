@@ -49,7 +49,7 @@ export default function App() {
   );
 
   return (
-    <div className={"max-w-5xl mx-auto p-2 sm:p-4 md:p-6 min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300"}>
+    <div className={"max-w-full mx-auto p-2 sm:p-4 md:p-6 min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300"}>
       <div className="flex justify-between items-center mb-4 sm:mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-center w-full text-gray-900 dark:text-gray-100">📱 Product Comparison</h1>
         <button
@@ -68,7 +68,7 @@ export default function App() {
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         {filteredProducts.map(product => (
           <ProductCard
             key={product.id}
@@ -80,8 +80,19 @@ export default function App() {
       </div>
 
       {compareList.length >= 2 && (
-        <div id="comparison-table">
-          <CompareTable compareList={compareList} />
+        <div className="mt-8 mb-4 sticky top-0 z-40 flex flex-col items-center" id="comparison-table">
+          <CompareBar
+            compareList={compareList}
+            clear={() => setCompareList([])}
+            remove={id => setCompareList(compareList.filter(p => p.id !== id))}
+            onClick={() => {
+              const table = document.getElementById('main-comparison-table');
+              if (table) table.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }}
+          />
+          <div className="w-full">
+            <CompareTable compareList={compareList} tableId="main-comparison-table" />
+          </div>
         </div>
       )}
     </div>
