@@ -3,7 +3,7 @@ export const products = [
     id: 1,
     name: "iPhone 14",
     brand: "Apple",
-    price: "$799",
+    price: "₹79,000",
     image: "https://via.placeholder.com/150",
     features: [
       { label: "Battery", value: "20 hrs" },
@@ -15,7 +15,7 @@ export const products = [
     id: 2,
     name: "Galaxy S23",
     brand: "Samsung",
-    price: "$749",
+    price: "₹74,900",
     image: "https://via.placeholder.com/150",
     features: [
       { label: "Battery", value: "22 hrs" },
@@ -27,7 +27,7 @@ export const products = [
     id: 3,
     name: "Pixel 7",
     brand: "Google",
-    price: "$599",
+    price: "₹59,990",
     image: "https://via.placeholder.com/150",
     features: [
       { label: "Battery", value: "24 hrs" },
@@ -39,7 +39,7 @@ export const products = [
     id: 4,
     name: "OnePlus 11",
     brand: "OnePlus",
-    price: "$699",
+    price: "₹69,945",
     image: "https://via.placeholder.com/150",
     features: [
       { label: "Battery", value: "26 hrs" },
@@ -51,7 +51,7 @@ export const products = [
     id: 5,
     name: "Xiaomi 13",
     brand: "Xiaomi",
-    price: "$649",
+    price: "₹64,999",
     image: "https://via.placeholder.com/150",
     features: [
       { label: "Battery", value: "25 hrs" },
@@ -63,7 +63,7 @@ export const products = [
     id: 6,
     name: "Nothing Phone 2",
     brand: "Nothing",
-    price: "$599",
+    price: "₹59,990",
     image: "https://via.placeholder.com/150",
     features: [
       { label: "Battery", value: "23 hrs" },
@@ -75,7 +75,7 @@ export const products = [
     id: 7,
     name: "Moto Edge 40",
     brand: "Motorola",
-    price: "$499",
+    price: "₹49,990",
     image: "https://via.placeholder.com/150",
     features: [
       { label: "Battery", value: "28 hrs" },
@@ -87,7 +87,7 @@ export const products = [
     id: 8,
     name: "Realme GT",
     brand: "Realme",
-    price: "$459",
+    price: "₹45,999",
     image: "https://via.placeholder.com/150",
     features: [
       { label: "Battery", value: "30 hrs" },
