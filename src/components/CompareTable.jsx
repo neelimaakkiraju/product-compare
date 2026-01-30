@@ -19,35 +19,41 @@ export default function CompareTable({ compareList, tableId }) {
 
   return (
     <div className="w-full overflow-x-auto mt-6" id={tableId || undefined}>
-      <table className="min-w-[400px] w-full border-collapse shadow rounded-lg overflow-hidden bg-white dark:bg-gray-800 text-xs sm:text-sm">
+      <div className="mb-3 flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
+        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700">Differences are softly tinted</span>
+        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200 border border-emerald-100 dark:border-emerald-800">Lowest price highlighted</span>
+      </div>
+      <table className="min-w-[520px] w-full border-collapse shadow-sm rounded-2xl overflow-hidden bg-white/95 dark:bg-slate-900/95 text-xs sm:text-sm border border-slate-200 dark:border-slate-700 backdrop-blur">
         <thead>
-          <tr className="bg-blue-100 dark:bg-gray-700">
-            <th className="p-2 sm:p-3 text-left font-semibold text-gray-900 dark:text-gray-100">Feature</th>
+          <tr className="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-50">
+            <th className="p-3 sm:p-4 text-left font-semibold sticky left-0 bg-slate-100 dark:bg-slate-800 z-10">Feature</th>
             {compareList.map(p => (
-              <th key={p.id} className="p-2 sm:p-3 text-left font-semibold text-gray-900 dark:text-gray-100">{p.name}</th>
+              <th key={p.id} className="p-3 sm:p-4 text-left font-semibold">{p.name}</th>
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
           {/* Price row */}
-          <tr className="border-t">
-            <td className="p-2 sm:p-3 font-medium text-gray-700 dark:text-gray-200">Price</td>
+          <tr className="bg-white dark:bg-slate-900">
+            <td className="p-3 sm:p-4 font-semibold text-slate-900 dark:text-slate-50 sticky left-0 bg-white dark:bg-slate-900 z-10">Price</td>
             {compareList.map(p => (
-              <td key={p.id} className={`p-2 sm:p-3 text-gray-600 dark:text-gray-200 ${isSame('Price') ? '' : 'bg-yellow-100 dark:bg-yellow-900 font-bold'}`}>{p.price}</td>
+              <td key={p.id} className={`p-3 sm:p-4 text-slate-700 dark:text-slate-200 ${isSame('Price') ? '' : 'bg-emerald-50 dark:bg-emerald-900/30 font-semibold'}`}>
+                {p.price}
+              </td>
             ))}
           </tr>
           {/* Dynamic feature rows */}
-          {featureLabels.map(label => {
+          {featureLabels.map((label, rowIdx) => {
             const same = isSame(label);
             return (
-              <tr key={label} className="border-t">
-                <td className="p-2 sm:p-3 font-medium text-gray-700 dark:text-gray-200">{label}</td>
+              <tr key={label} className={rowIdx % 2 === 0 ? "bg-white dark:bg-slate-900" : "bg-slate-50 dark:bg-slate-800"}>
+                <td className="p-3 sm:p-4 font-semibold text-slate-900 dark:text-slate-50 sticky left-0 z-10 bg-inherit">{label}</td>
                 {compareList.map(p => {
                   const found = p.features.find(f => f.label === label);
                   return (
                     <td
                       key={p.id}
-                      className={`p-2 sm:p-3 text-gray-600 dark:text-gray-200 ${same ? '' : 'bg-yellow-100 dark:bg-yellow-900 font-bold'}`}
+                      className={`p-3 sm:p-4 text-slate-700 dark:text-slate-200 ${same ? '' : 'bg-slate-100 dark:bg-slate-800 font-semibold'}`}
                     >
                       {found ? found.value : '-'}
                     </td>

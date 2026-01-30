@@ -1,46 +1,54 @@
 export default function CompareBar({ compareList, clear, remove, onClick }) {
   return (
     <div
-      className="w-full flex flex-wrap items-center gap-2 p-3 sm:p-4 bg-yellow-100 dark:bg-yellow-900 border border-yellow-400 dark:border-yellow-700 rounded-xl shadow-lg mb-2 sm:mb-4 sticky top-0 z-40"
+      className="relative w-full rounded-2xl overflow-hidden shadow-md border border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur"
       title="Currently comparing products"
+      onClick={onClick}
+      role="region"
+      aria-label="Comparison selection bar"
     >
-      <span className="font-semibold mr-2 text-lg text-yellow-900 dark:text-yellow-200">🔍 Comparing:</span>
-      {compareList.map(p => (
+      <div className="relative flex flex-wrap items-center gap-2 p-4 sm:p-5">
+        <span className="font-semibold text-base sm:text-lg text-slate-900 dark:text-slate-50 flex items-center gap-2">
+          <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-sky-600 text-white shadow">🔍</span>
+          Comparing
+        </span>
+        {compareList.map((p, idx) => (
+          <button
+            key={p.id}
+            onClick={(e) => { e.stopPropagation(); remove(p.id); }}
+            className="group relative inline-flex items-center gap-2 px-3 py-2 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-50 shadow-sm hover:border-sky-400 dark:hover:border-sky-500 transition"
+            title={`Remove ${p.name}`}
+            tabIndex={0}
+            aria-label={`Remove ${p.name} from comparison`}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                remove(p.id);
+              }
+            }}
+          >
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-sky-600 text-white text-xs font-bold shadow">{idx + 1}</span>
+            <span className="truncate max-w-[110px] sm:max-w-[160px] text-left">{p.name}</span>
+            <span className="text-slate-500 font-bold group-hover:text-red-500 transition-colors">✕</span>
+          </button>
+        ))}
         <button
-          key={p.id}
-          onClick={e => { e.stopPropagation(); remove(p.id); }}
-          className="px-3 py-1 bg-white dark:bg-gray-800 rounded border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 hover:bg-red-100 dark:hover:bg-red-900 transition relative group shadow focus:outline-none focus:ring-2 focus:ring-red-400"
-          title={`Remove ${p.name}`}
+          className="ml-auto inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-50 font-semibold border border-slate-200 dark:border-slate-700 hover:border-red-500 hover:text-red-600 dark:hover:text-red-400 transition shadow-sm"
+          onClick={(e) => { e.stopPropagation(); clear(); }}
+          title="Clear all compared products"
           tabIndex={0}
-          aria-label={`Remove ${p.name} from comparison`}
-          onKeyDown={e => {
+          aria-label="Clear all compared products"
+          onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
-              remove(p.id);
+              clear();
             }
           }}
         >
-          {p.name}
-          <span className="ml-1 text-red-500 font-bold">✕</span>
+          <span aria-hidden>🗑</span>
+          <span>Clear</span>
         </button>
-      ))}
-      <button
-        className="ml-auto px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-800 transition flex items-center gap-1 shadow focus:outline-none focus:ring-2 focus:ring-red-400"
-        onClick={e => { e.stopPropagation(); clear(); }}
-        title="Clear all compared products"
-        tabIndex={0}
-        aria-label="Clear all compared products"
-        onKeyDown={e => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            clear();
-          }
-        }}
-      >
-        <span>🗑</span>
-        <span>Clear</span>
-      </button>
-     
+      </div>
     </div>
   );
 }
